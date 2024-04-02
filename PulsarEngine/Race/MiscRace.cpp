@@ -30,6 +30,17 @@ kmCall(0x807eb154, MiiHeads);
 kmWrite32(0x807eb15c, 0x60000000);
 kmWrite32(0x807eb160, 0x88de01b4);
 
+kmWrite32(0x808b5cd4,0x40200000);
+
+void ApplyCorrectDriftThreshold()
+{
+    Kart::minDriftSpeedRatio = 0.55f;
+    if(!CupsConfig::IsRegsSituation() && Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_PHYSICS, SETTINGPHYSICS_RADIO_ALWAYS_DRIFT) == PHYSICSSETTING_ALWAYS_DRIFT_ENABLED)
+        Kart::minDriftSpeedRatio = 0.0f;
+}
+
+static RaceLoadHook rlhDriftThreshold(ApplyCorrectDriftThreshold);
+
 //credit to XeR for finding the float address
 static void BattleGlitchEnable() {
     const bool isEnabled = Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_RACE, SETTINGRACE_RADIO_BATTLE) == RACESETTING_BATTLE_GLITCH_ENABLED;

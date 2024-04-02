@@ -13,15 +13,14 @@ if "%1" equ "-d" SET "cwDWARF=-g"
 :: Destination (change as necessary)
 SET "SOURCE=Pulsar"
 SET "RIIVO=C:\Users\admin\Documents\Dolphin Emulator\Load\Riivolution\Pulsar"
-SET "ENGINE=C:\Modding\Coding\Kamek\Common\KamekInclude"
-SET "CREATOR=C:\Modding\Coding\Kamek\Pulsar\PulsarPackCreator\Resources"
-echo %RIIVO%
+SET "ENGINE=C:\Users\Gabi\Documents\GitHub\Pulsar\KamekInclude"
+SET "CREATOR=C:\Users\Gabi\Documents\GitHub\Pulsar\PulsarPackCreator\Resources"
 
 
 :: CPP compilation settings
-SET CC="../Common/cw/mwcceppc.exe"
-SET CFLAGS=-I- -i "../Common/KamekInclude" -i "../Common/GameSource" -i "../Common/GameSource/MarioKartWii" -i PulsarEngine ^
-  -opt all -inline auto -enum int -proc gekko -fp hard -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 %cwDWARF%
+SET CC="C:\Program Files (x86)\Freescale\CW for MPC55xx and MPC56xx 2.10\PowerPC_EABI_Tools\Command_Line_Tools\mwcceppc.exe"
+SET CFLAGS=-I- -i "KamekInclude" -i "GameSource" -i "GameSource/MarioKartWii" -i PulsarEngine ^
+  -opt all -inline auto -enum int -fp hard -sdata 0 -sdata2 0 -maxerrors 1 -func_align 4 %cwDWARF%
 SET DEFINE=
 
 :: CPP Sources
@@ -40,10 +39,10 @@ FOR %%H IN (%CPPFILES%) DO (
 
 :: Link
 echo Linking... %time%
-"../Common/Kamek" "build/kamek.o" %OBJECTS% %debug% -dynamic -externals="../Common/GameSource/symbols.txt" -versions="../Common/GameSource/versions.txt" -output-combined=build\Code.pul
+"KamekLinker/Kamek" "build/kamek.o" %OBJECTS% %debug% -dynamic -externals="GameSource/symbols.txt" -versions="GameSource/versions.txt" -output-combined=build\Code.pul
 
 if %ErrorLevel% equ 0 (
-    xcopy /Y build\*.pul "%RIIVO%\Binaries" >nul
+    :: xcopy /Y build\*.pul "%RIIVO%\Binaries" >nul
     xcopy /Y build\*.pul "%CREATOR%" >nul
     echo Binaries copied
 )
