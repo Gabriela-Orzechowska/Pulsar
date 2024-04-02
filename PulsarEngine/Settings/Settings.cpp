@@ -65,6 +65,10 @@ void Mgr::Init(u32 pageCount, const u16* totalTrophyCount, const char* path/*, c
         buffer = io->Alloc<Binary>(size);
         memset(buffer, 0, size);
         new(buffer) Binary(Binary::curVersion, pageCount, CupsConfig::sInstance->GetEffectiveTrackCount());
+        // Defaults
+        buffer->GetSection<PagesHolder>().pages[SETTINGSTYPE_PHYSICS].settings[SETTINGPHYSICS_RADIO_FAST_FALL] = PHYSICSSETTING_FAST_FALL_ENABLED;
+        buffer->GetSection<PagesHolder>().pages[SETTINGSTYPE_PHYSICS].settings[SETTINGPHYSICS_RADIO_ALWAYS_DRIFT] = PHYSICSSETTING_ALWAYS_DRIFT_ENABLED;
+        buffer->GetSection<PagesHolder>().pages[SETTINGSTYPE_PHYSICS].settings[SETTINGPHYSICS_RADIO_BRAKE_DRIFT] = PHYSICSSETTING_BRAKE_DRIFT_ENABLED;
     }
 
     TrophiesHolder& trophies = buffer->GetSection<TrophiesHolder>();
