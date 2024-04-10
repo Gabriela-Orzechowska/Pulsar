@@ -13,6 +13,7 @@ kmWrite32(0x8064b984, 0x60000000); //nop the InitControl call in the init func
 
 kmWrite24(0x80899a36, 'PUL'); //8064ba38
 kmWrite24(0x80899a5B, 'PUL'); //8064ba90
+kmWrite24(0x80899a87, 'PUL'); //8064ba90
 
 void ExpWFCMain::OnInit() {
     this->InitControlGroup(6); //5 controls usually + settings button
@@ -25,7 +26,12 @@ void ExpWFCMain::OnInit() {
     this->settingsButton.SetOnSelectHandler(this->onButtonSelectHandler);
 
     this->topSettingsPage = SettingsPanel::firstId;
+
+    this->worldwideButton.isHidden = true;
+    this->worldwideButton.SetPlayerBitfield(0);    
 }
+kmWrite32(0x8064bc3c, 0x387e0484);
+kmWrite32(0x8064bcb4, 0x38630484);
 
 void ExpWFCMain::OnSettingsButtonClick(PushButton& pushButton, u32 r5) {
     const Section* section = SectionMgr::sInstance->curSection;

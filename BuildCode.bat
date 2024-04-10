@@ -13,8 +13,8 @@ if "%1" equ "-d" SET "cwDWARF=-g"
 :: Destination (change as necessary)
 SET "SOURCE=Pulsar"
 SET "RIIVO=C:\Users\admin\Documents\Dolphin Emulator\Load\Riivolution\Pulsar"
-SET "ENGINE=C:\Users\Gabi\Documents\GitHub\Pulsar\KamekInclude"
-SET "CREATOR=C:\Users\Gabi\Documents\GitHub\Pulsar\PulsarPackCreator\Resources"
+SET "ENGINE=C:\Users\janor\Documents\GitHub\Pulsar\KamekInclude"
+SET "CREATOR=C:\Users\janor\Documents\GitHub\Pulsar\PulsarPackCreator\Resources"
 
 
 :: CPP compilation settings
