@@ -41,6 +41,7 @@ Kart::Stats* ApplySpeedModifier(KartId kartId, CharacterId characterId) {
     speedModConv.kmpValue = (KMP::Manager::sInstance->stgiSection->holdersArray[0]->raw->speedMod << 16);
     if(speedModConv.speedMod == 0.0f) speedModConv.speedMod = 1.0f;
     float factor = Info::Is200cc() ? speedFactor : 1.0f;
+    if(RaceData::sInstance->racesScenario.settings.engineClass == CC_50) factor = 2.5f;
     factor *= speedModConv.speedMod;
 
     Item::greenShellSpeed = 105.0f * factor;
