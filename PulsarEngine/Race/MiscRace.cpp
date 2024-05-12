@@ -7,6 +7,7 @@
 #include <MarioKartWii/GlobalFunctions.hpp>
 #include <Settings/Settings.hpp>
 #include <Info.hpp>
+#include <MarioKartWii/Driver/DriverManager.hpp>
 
 namespace Pulsar {
 namespace Race {
@@ -30,12 +31,10 @@ kmCall(0x807eb154, MiiHeads);
 kmWrite32(0x807eb15c, 0x60000000);
 kmWrite32(0x807eb160, 0x88de01b4);
 
-kmWrite32(0x808b5cd4,0x40200000);
-
 void ApplyCorrectDriftThreshold()
 {
     Kart::minDriftSpeedRatio = 0.55f;
-    if(!CupsConfig::IsRegsSituation() && Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_PHYSICS, SETTINGPHYSICS_RADIO_ALWAYS_DRIFT) == PHYSICSSETTING_ALWAYS_DRIFT_ENABLED)
+    if(!CupsConfig::IsRegsSituation() && Settings::Mgr::GetSettingValue(Settings::SETTINGSTYPE_PHYSICS, SETTINGPHYSICS_RADIO_ALWAYS_DRIFT) == PHYSICSSETTING_ALWAYS_DRIFT_ENABLED || DriverMgr::isTT)
         Kart::minDriftSpeedRatio = 0.0f;
 }
 
@@ -52,7 +51,7 @@ RaceLoadHook BattleGlitch(BattleGlitchEnable);
 
 kmWrite32(0x8085C914, 0x38000000); //times at the end of races in VS
 static void DisplayTimesInsteadOfNames(CtrlRaceResult& result, u8 id) {
-    result.FillFinishTime(id);
+    result.DisplayFinishTime(id);
 }
 kmCall(0x8085d460, DisplayTimesInsteadOfNames); //for WWs
 
